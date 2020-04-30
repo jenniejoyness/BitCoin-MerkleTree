@@ -2,13 +2,18 @@ from Node import Node
 import hashlib
 
 root = None
-num = None
+num_leaves = None
 
 
-def request_handler(client_request):
-    client_request = client_request.split(" ")
-    func = switcher.get(client_request[0], illegal_request)
-    func(client_request[1:])
+def request_handler(user_request):
+    user_request = user_request.split(" ")
+    func = switcher.get(user_request[0], illegal_request)
+    func(user_request[1:])
+
+
+'''
+function that initializes the leaves and create the recursive_tree function to get the Merkle Tree
+'''
 
 
 def make_tree(user_input):
@@ -18,8 +23,14 @@ def make_tree(user_input):
     global root
     root = recursive_tree(nodes)
     print(root.hash_value)
-    global num
-    num = len(nodes)
+    global num_leaves
+    num_leaves = len(nodes)
+
+
+'''
+Creating Merkle Tree -
+Where each node is the result of the hash function of the two sons' concatenation.
+'''
 
 
 def recursive_tree(nodes):
@@ -64,7 +75,7 @@ def check_proof(input):
 
 
 def find_path(index):
-    index += num
+    index += num_leaves
     path = []
     while index != 1:
         path.append("l") if index % 2 == 0 else path.append("r")
@@ -74,11 +85,11 @@ def find_path(index):
 
 
 def nonce(difficuty):
-    if root == None:
+    if root is None:
         exit(0)
     i = 0
     hash_result = str(hashlib.sha256((str(i) + root.hash_value).encode()).hexdigest())
-    while hash_result.startswith("0" * int(difficuty[0])) == False:
+    while not hash_result.startswith("0" * int(difficuty[0])):
         i += 1
         hash_result = str(hashlib.sha256((str(i) + root.hash_value).encode()).hexdigest())
     print(i, hash_result)
@@ -92,12 +103,11 @@ switcher = {
 }
 
 
-def illegal_request():
-    print("error")
+def illegal_request(input):
+    exit(0)
 
 
 if __name__ == '__main__':
-
     user_input = input()
     while user_input != '5':
         request_handler(user_input)
