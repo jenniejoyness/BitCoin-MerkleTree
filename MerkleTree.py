@@ -4,7 +4,6 @@ import hashlib
 root = None
 num_leaves = None
 
-
 def request_handler(user_request):
     user_request = user_request.split(" ")
     func = switcher.get(user_request[0], illegal_request)
@@ -42,6 +41,9 @@ def recursive_tree(nodes):
         new_nodes.append(Node(left, right))
     return recursive_tree(new_nodes)
 
+'''
+input 2
+'''
 
 def create_proof(index):
     if root == None:
@@ -61,7 +63,9 @@ def create_proof(index):
     output.reverse()
     print(' '.join(output))
 
-
+'''
+input 3
+'''
 def check_proof(input):
     leaf = input[0]
     local_root = input[1]
@@ -77,7 +81,9 @@ def check_proof(input):
             exit(0)
     print(local_root == hash_value)
 
-
+'''
+ returns a string of the path to the requested index
+'''
 def find_path(index):
     index += num_leaves
     path = []
@@ -87,7 +93,9 @@ def find_path(index):
     path.reverse()
     return path
 
-
+'''
+finds the number of times needed to change the nonce in order to find a hash value lower than the difficulty
+'''
 def nonce(difficuty):
     if root is None:
         exit(0)
