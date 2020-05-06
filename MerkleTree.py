@@ -46,6 +46,8 @@ def recursive_tree(nodes):
 def create_proof(index):
     if root == None:
         exit(0)
+    if int(index[0])  >= num_leaves:
+        exit(0)
     path = find_path(int(index[0]))
     output = []
     node = root
@@ -69,8 +71,10 @@ def check_proof(input):
     for direction, node in lst:
         if direction == "l":
             hash_value = hashlib.sha256((node + hash_value).encode()).hexdigest()
-        else:
+        elif direction == "r":
             hash_value = hashlib.sha256((hash_value + node).encode()).hexdigest()
+        else:
+            exit(0)
     print(local_root == hash_value)
 
 
@@ -86,6 +90,8 @@ def find_path(index):
 
 def nonce(difficuty):
     if root is None:
+        exit(0)
+    if not difficuty[0].isdigit():
         exit(0)
     i = 0
     hash_result = str(hashlib.sha256((str(i) + root.hash_value).encode()).hexdigest())
