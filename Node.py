@@ -1,3 +1,5 @@
+# Jennie Klein, 324686492, Renana Malkiel , 209125806
+
 import hashlib
 
 class Node:

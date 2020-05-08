@@ -1,3 +1,5 @@
+# Jennie Klein, 324686492, Renana Malkiel , 209125806
+
 from Node import Node
 import hashlib
 
@@ -42,13 +44,13 @@ def recursive_tree(nodes):
     return recursive_tree(new_nodes)
 
 '''
-input 2
+create a proof for the leaf index that given
 '''
 
 def create_proof(index):
     if root == None:
         exit(0)
-    if int(index[0])  >= num_leaves:
+    if int(index[0]) >= num_leaves:
         exit(0)
     path = find_path(int(index[0]))
     output = []
@@ -64,7 +66,7 @@ def create_proof(index):
     print(' '.join(output))
 
 '''
-input 3
+check given proof
 '''
 def check_proof(input):
     leaf = input[0]
