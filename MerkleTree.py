@@ -1,10 +1,20 @@
 # Jennie Klein, 324686492, Renana Malkiel, 209125806
-
-from Node import Node
 import hashlib
 
 root = None
 num_leaves = None
+
+
+class Node:
+
+    def __init__(self, left, right, hash_value=None):
+        self.left = left
+        self.right = right
+        self.hash_value = self.calc_hash() if not hash_value else hash_value
+
+    def calc_hash(self):
+        return str(hashlib.sha256((self.left.hash_value + self.right.hash_value).encode()).hexdigest())
+
 
 def request_handler(user_request):
     user_request = user_request.split(" ")
@@ -43,9 +53,11 @@ def recursive_tree(nodes):
         new_nodes.append(Node(left, right))
     return recursive_tree(new_nodes)
 
+
 '''
 create a proof for the leaf index that given
 '''
+
 
 def create_proof(index):
     if root == None:
@@ -65,9 +77,12 @@ def create_proof(index):
     output.reverse()
     print(' '.join(output))
 
+
 '''
 check given proof
 '''
+
+
 def check_proof(input):
     leaf = input[0]
     local_root = input[1]
@@ -83,9 +98,12 @@ def check_proof(input):
             exit(0)
     print(local_root == hash_value)
 
+
 '''
  returns a string of the path to the requested index
 '''
+
+
 def find_path(index):
     index += num_leaves
     path = []
@@ -95,9 +113,12 @@ def find_path(index):
     path.reverse()
     return path
 
+
 '''
 finds the number of times needed to change the nonce in order to find a hash value lower than the difficulty
 '''
+
+
 def nonce(difficuty):
     if root is None:
         exit(0)
