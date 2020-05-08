@@ -1,4 +1,4 @@
-# Jennie Klein, 324686492, Renana Malkiel , 209125806
+# Jennie Klein, 324686492, Renana Malkiel, 209125806
 
 from Node import Node
 import hashlib
